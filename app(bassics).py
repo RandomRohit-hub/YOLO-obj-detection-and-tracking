@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 from object_detection import ObjectDetection
+import math
 
 
 #load obj detection
@@ -55,10 +56,16 @@ while True:
 
     for pt in center_point_curr_frame:
         for pt2 in center_point_prev_frame:
-            distance=match.hypot(pt2[0]-pt[0],pt2[1]-pt[1])
+            distance=math.hypot(pt2[0]-pt[0],pt2[1]-pt[1])
 
             if distance<=10:
                 tracking_obj[track_id]=pt
+                track_id+=1
+
+
+    print('TRACKING OBJ')
+    print(tracking_obj)
+
 
 
     print('CUR FRAME')
