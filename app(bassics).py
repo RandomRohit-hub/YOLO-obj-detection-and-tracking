@@ -54,13 +54,29 @@ while True:
         cv2.rectangle(frame,(x,y),(x+w,y+h),(0,255,0),2)  ## L,W,COLOR,THICK
 
 
-    for pt in center_point_curr_frame:
-        for pt2 in center_point_prev_frame:
-            distance=math.hypot(pt2[0]-pt[0],pt2[1]-pt[1])
 
-            if distance<=20:
-                tracking_obj[track_id]=pt
-                track_id+=1
+
+
+    #only at beginning we compare prev and current frame
+
+    if count<=1:
+        for pt in center_point_curr_frame:
+            for pt2 in center_point_prev_frame:
+                distance=math.hypot(pt2[0]-pt[0],pt2[1]-pt[1])
+
+                if distance<=20:
+                    tracking_obj[track_id]=pt
+                    track_id+=1
+
+
+    else:
+        for pt2 in center_point_curr_frame:
+
+           for pt2 in tracking_obj.items():
+            
+                distance=math.hypot(pt2[0]-pt[0],pt2[1]-pt[1])
+                if distance<20:
+                    tracking_obj[obj_id]=pt
 
 
     for obj_id, pt in tracking_obj.items():
